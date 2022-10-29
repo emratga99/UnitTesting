@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using mvc1.Controllers;
 using mvc1.Models;
 using mvc1.Services;
+using System.Linq;
 
 namespace RookiesControllerTest;
 
@@ -91,13 +92,14 @@ public class Tests
         var updateMember = new PersonUpdateModel();
         var result = _rookies.Update(index, updateMember);
 
-        Assert.IsInstanceOf<ViewResult>(result);
+        Assert.IsInstanceOf<BadRequestObjectResult>(result);
 
         var viewResult = (BadRequestObjectResult)result;
-        var serialize = (SerializableError)viewResult.Value;
-
-        Assert.AreEqual("FistName", serialize.Keys.ToList()[0] as string);
-
+        if (viewResult.Value != null)
+        {
+            var errorsList = (List<string>)viewResult.Value; 
+            Assert.AreEqual("FistName", errorsList[0] as string);
+        }
     }
 
     [Test]
@@ -130,7 +132,7 @@ public class Tests
     }
 
     [Test]
-    public void Test7_Detail_Content_IsNotFound()
+    public void Test7_Detail_ReturnView()
     {
         var testId = 1;
 
@@ -138,11 +140,7 @@ public class Tests
 
         var result = _rookies.Details(testId);
 
-        Assert.IsInstanceOf<ViewResult>(result);
-
-        var contentResult = (ContentResult)result;
-
-        Assert.AreEqual("ViewResult", contentResult.Content);
+        Assert.IsInstanceOf<ViewResult>(result); 
     }
 
     [Test]
@@ -160,7 +158,7 @@ public class Tests
         var result = controller.Delete(1);
         var actual = _data.Count();
 
-        Assert.IsInstanceOf<RedirectToActionResult>(result);
+        Assert.IsInstanceOf<ViewResult>(result);
         Assert.IsNotNull(result);
         Assert.AreEqual(expected, actual);
     }

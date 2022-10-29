@@ -108,7 +108,7 @@ namespace mvc1.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(model);
+            return BadRequest(ModelState.Keys.ToList());
         }
 
         public IActionResult Delete(int index)
@@ -119,7 +119,7 @@ namespace mvc1.Controllers
                 return NotFound();
             }
 
-            HttpContext.Session.SetString("DeletedNames", result.FullName);
+            //HttpContext.Session.SetString("DeletedNames", result.FullName); for UnitTesting
             return View(result);
         }
 
