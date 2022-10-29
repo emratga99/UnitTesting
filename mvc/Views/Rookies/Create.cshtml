@@ -1,0 +1,48 @@
+﻿@model mvc1.Models.PersonCreateModel;
+@{
+    ViewData["Title"] = "Create new person";
+}
+
+<div class="container">
+    <div class="row">  
+        @using (Html.BeginForm())
+{
+            <div class="form-group">
+                <label>First Name</label>
+                <div class="col-lg-10">
+                    <input class="form-control text-box single-line" id="FirstName" name="FirstName" type="text">
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+                <label>Last Name</label>
+                <div class="col-lg-10">
+                    <input class="form-control text-box single-line" id="LastName" name="LastName" type="text">
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+                <label>Gender</label>
+                <div class="col-lg-10">
+                    <input class="form-control text-box single-line" id="Gender" name="Gender" type="text">
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+                <label>Date Of Birth</label>
+                <div class="col-lg-10">
+                    <input class="form-control text-box single-line" id="DateOfBirth" name="DateOfBirth" value="" type="date">
+                </div>
+                <label>Phone Number</label>
+                <div class="col-lg-10">
+                    <input class="form-control text-box single-line" id="PhoneNumber" name="PhoneNumber" type="text">
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+                <label>Is Graduated</label>
+                <div class="col-lg-10">
+                    <input class="form-control form-check-input" type="checkbox" id="IsGraduated" name="IsGraduated" value="true">
+                </div>
+            </div>
+            <br />
+
+            <p>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </p>
+}
+    </div>
+</div>
+ 
